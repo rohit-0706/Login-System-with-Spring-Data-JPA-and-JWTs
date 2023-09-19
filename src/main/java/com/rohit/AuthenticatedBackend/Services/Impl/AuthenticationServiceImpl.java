@@ -5,8 +5,10 @@ import com.rohit.AuthenticatedBackend.Entity.Role;
 import com.rohit.AuthenticatedBackend.Repository.RoleRepository;
 import com.rohit.AuthenticatedBackend.Repository.UserRepository;
 import com.rohit.AuthenticatedBackend.Services.AuthenticationService;
+import com.rohit.AuthenticatedBackend.Services.TokenService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private TokenService tokenService;
 
     @Override
     public ApplicationUser registerUser(String username, String password) {
