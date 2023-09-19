@@ -2,6 +2,7 @@ package com.rohit.AuthenticatedBackend.Services;
 
 import com.rohit.AuthenticatedBackend.Entity.ApplicationUser;
 import com.rohit.AuthenticatedBackend.Entity.Role;
+import com.rohit.AuthenticatedBackend.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,13 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder encoder;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("In the user details service");
-        if(!username.equals("Ethan")) throw new UsernameNotFoundException("Not Ethan");
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role(1,"USER"));
-        return new ApplicationUser(1,"Ethan", encoder.encode("password"),roles);
+         return userRepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("user is not valid"));
 
     }
 }
