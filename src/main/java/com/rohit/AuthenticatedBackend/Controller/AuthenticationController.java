@@ -3,6 +3,7 @@ package com.rohit.AuthenticatedBackend.Controller;
 
 import com.rohit.AuthenticatedBackend.Entity.ApplicationUser;
 import com.rohit.AuthenticatedBackend.Services.AuthenticationService;
+import com.rohit.AuthenticatedBackend.dto.LoginResponseDto;
 import com.rohit.AuthenticatedBackend.dto.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,5 +19,10 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ApplicationUser registerUser(@RequestBody RegistrationDto registrationDto){
         return authenticationService.registerUser(registrationDto.getUsername(),registrationDto.getPassword());
+    }
+
+    @PostMapping("/login")
+    public LoginResponseDto loginUser(@RequestBody RegistrationDto registrationDto){
+        return authenticationService.loginUser(registrationDto.getUsername(),registrationDto.getPassword());
     }
 }
